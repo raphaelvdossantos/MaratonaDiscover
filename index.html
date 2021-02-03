@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,12 +10,19 @@
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;600&display=swap"
       rel="stylesheet"
     />
-    <title>dev.Finance$</title>
+    <title>Devdot</title>
   </head>
   <body>
     <main class="container">
       <header>
-        <img src="./assets/LOGO.png" alt="Logo Dev Finance" />
+        <img src="./assets/LOGO.svg" alt="Logo Dev Finance" />
+        <input
+          onclick="Mode.alternate()"
+          type="checkbox"
+          id="switch"
+          name="mode"
+        />
+        <label for="switch">Alternar</label>
       </header>
       <section id="balance">
         <h2 class="sr-only">Balanço</h2>
@@ -45,10 +52,13 @@
 
       <section id="transaction">
         <h2 class="sr-only">Transações</h2>
-
-        <a href="#" onclick="Modal.open()" class="button new"
-          >+ Nova Transação</a
-        >
+        <div id="button-bay">
+          <a href="#" onclick="Modal.open()" class="button new"
+            >+ Nova Transação</a
+          ><a href="#" onclick="Export.toCSV()" class="button new"
+            >Exportar com CSV</a
+          >
+        </div>
         <div class="table-container">
           <table id="data-table">
             <thead>

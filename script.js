@@ -107,6 +107,20 @@ const Utils = {
     const splittedDate = date.split("-")
     return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`
   },
+  formatCSV(data){
+    
+    const headers = Object.keys(data[0]);
+    const formatedCSV = [headers]
+     data.forEach(row => {
+      let values = headers.map(header => {
+          const escaped =  `${String(row[header]).replace(/"/g, '')}`
+          return escaped
+        })
+      formatedCSV.push(values.join(','))
+    });
+    
+    return formatedCSV.join('\n');
+  },
   formatCurrency(value){
     const signal = Number(value) < 0? "- " : "";
     
@@ -177,6 +191,40 @@ const Form = {
   }
 }
 
+const Export = {
+  toCSV(){     
+    const csvToExport = Utils.formatCSV(Storage.get());
+    const blob = new Blob([csvToExport], {type: 'text/csv'});
+    const url = window.URL.createObjectURL(blob);
+
+    const downloadLink = document.createElement('a');
+    downloadLink.setAttribute('hidden', '');
+    downloadLink.setAttribute('href', url);
+    downloadLink.setAttribute('download', 'finance.csv');
+    document.body.appendChild(downloadLink);
+    downloadLink.click()
+    document.body.removeChild(downloadLink);
+  }
+}
+
+const Mode = {
+  screen: document.documentElement,
+  alternate(){
+    const toggleControl = document.querySelector('#switch');   
+    Mode.transition();
+    toggleControl.checked ? 
+      Mode.screen.setAttribute('data-theme', 'dark') : 
+      Mode.screen.setAttribute('data-theme', 'light');
+     
+  },
+  transition(){
+    Mode.screen.classList.add('transition');
+    window.setTimeout(() => {
+      Mode.screen.classList.remove('transition');
+    }, 3000);
+  }
+}
+
 const App = {
   init(){
     Transaction.all.forEach(DOM.addTransaction);
@@ -188,5 +236,7 @@ const App = {
     App.init();
   }
 }
+
+
 
 App.init()

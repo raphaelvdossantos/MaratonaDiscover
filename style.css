@@ -1,13 +1,4 @@
 /* Global =================================*/
-:root{
-  --standard: #E9E9E9;
-  --standard-hover: #E0E0E3;
-  --dark: #221E22; 
-  --dark-shadow: #A0ADC7;
-  --clear-shadow: #fff;
-  --red: #e92929;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -16,6 +7,34 @@
 
 html {
   font-size: 93.75%;
+  
+  --standard: #E9E9E9;
+  --standard-hover: #E0E0E3;
+  --dark: #221E22; 
+  --dark-shadow: #A0ADC7;
+  --clear-shadow: #fff;
+  --green: #12A454;
+  --dark-green: #0E8242;
+  --red: #e92929;
+}
+
+html[data-theme="dark"] {  
+  --standard: #30333C;
+  --standard-hover: #24272F;
+  --dark: #C3CFC6; 
+  --dark-shadow: #000000;
+  --clear-shadow: rgba(154, 162, 177, 0.25);
+  --green: #12A454;
+  --dark-green: #0E8242;
+  --red: #e92929;
+}
+
+html.transition,
+html.transition *,
+html.transition *:after,
+html.transition *:before{
+  transition: all 750ms;
+  transition-delay: 0;
 }
 
 body {
@@ -38,7 +57,7 @@ body {
 .container {
   width: min(90vw, 900px);
   margin: auto;
-  background-color: rgba(233,233,233, 0.99);
+  background-color: var(--standard);
 }
 
 /* Titles =================================*/
@@ -77,14 +96,16 @@ button {
       -5px -5px 10px var(--clear-shadow);
 }
 
+#button-bay{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
 button:hover{
   font-weight: 600;
   background-color: var(--standard-hover);
-}
-
-.button.new {
-  display: inline-block;
-  margin-bottom: 2rem;
 }
 
 .button.cancel{
@@ -115,11 +136,55 @@ header {
   text-align: center;
 }
 
-#logo {
-  color: black;
-  font-weight: 200;
+
+header input[type=checkbox]{
+	height: 0;
+	width: 0;
+  visibility: hidden;
 }
 
+
+header label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 52px;
+	height: 27px;
+	background: grey;
+	float: right;
+	border-radius: 100px;
+	position: relative;
+}
+
+header label:after {
+	content: '';
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 20px;
+	height: 20px;
+	background: #f5f5f5;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+header input + label{
+  background-color: var(--standard);
+  box-shadow: inset 5px 5px 10px var(--dark-shadow);
+}
+
+header input:checked + label {
+  background: var(--green);
+  box-shadow: inset 5px 5px 10px var(--dark-green);
+}
+
+header input:checked + label:after {
+	left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+label:active:after {
+	width: 45px;
+}
 /* Balance =================================*/
 #balance{
   margin-top: -6rem ;
@@ -314,6 +379,11 @@ input{
 
 .input-group{
   margin-top: 1rem;
+}
+
+input#date{
+  color: var(--dark);
+  text-transform: uppercase;
 }
 
 .input-group small {
