@@ -334,7 +334,55 @@ td.expense {
   padding: 2.4rem;
   position: relative;
   z-index: 1;
-  border-radius: 1rem;
+  border-radius: 1rem
+}
+
+#download-box{
+  display: flex;
+  justify-content: space-between;
+  visibility: visible;
+}
+
+#download-link{
+  border-radius: 0.5rem;
+
+  padding: 1rem 2rem;
+
+  color: var(--green);
+  font-weight: 600;
+  font-size: 1.2rem;
+  
+  margin: 1.5rem 1rem;
+  max-width: 500px;
+
+  box-shadow: 5px 5px 10px var(--dark-shadow),
+      -5px -5px 10px var(--clear-shadow);
+}
+
+#cancel-download{
+  border-radius: 0.5rem;
+
+  padding: 1rem 2rem;
+
+  color: var(--red);
+  font-weight: 600;
+  font-size: 1.2rem;
+
+  margin: 1.5rem 1rem;
+  max-width: 500px;
+
+  box-shadow: 5px 5px 10px var(--dark-shadow),
+      -5px -5px 10px var(--clear-shadow);
+}
+
+#download-link:hover,
+#cancel-download:hover{
+  background-color: var(--standard-hover);
+}
+
+.hide{
+  visibility: hidden;
+  display: none;
 }
 
 /* Form ====================================*/
@@ -362,6 +410,10 @@ td.expense {
   inset -3px -3px 10px var(--clear-shadow);
 }
 
+#save{
+  color: var(--green)
+}
+
 .error-box.active{
   display: inline-block;
 }
@@ -370,6 +422,7 @@ input{
   border: none;
   border-radius: 0.5rem;
   background-color: var(--standard);
+  color: var(--dark);
 
   padding: 0.8rem;
   width: 100%;

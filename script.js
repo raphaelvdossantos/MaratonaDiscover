@@ -7,6 +7,11 @@ const Modal = {
     document
       .querySelector(".error-box")
       .classList.remove('active');
+    document
+      .querySelector('#form')
+        .classList.remove('hide')
+    document.querySelector('.downloadbox')
+      .classList.add('hide')
   },
   close() {
     Form.clearFields();
@@ -192,7 +197,7 @@ const Form = {
 }
 
 const Export = {
-  toCSV(){     
+  downloadCSV(){     
     const csvToExport = Utils.formatCSV(Storage.get());
     const blob = new Blob([csvToExport], {type: 'text/csv'});
     const url = window.URL.createObjectURL(blob);
@@ -202,8 +207,24 @@ const Export = {
     downloadLink.setAttribute('href', url);
     downloadLink.setAttribute('download', 'finance.csv');
     document.body.appendChild(downloadLink);
-    downloadLink.click()
+    downloadLink.click();
     document.body.removeChild(downloadLink);
+
+    document
+      .querySelector('#form')
+      .classList.toggle('hide')
+    Modal.close();
+  },
+  openLinkModal(){
+    document
+    .querySelector(".modal-overlay")
+    .classList
+    .add("active");
+    document
+      .querySelector('#form')
+        .classList.add('hide')
+    document.querySelector('.downloadbox')
+      .classList.remove('hide')
   }
 }
 
