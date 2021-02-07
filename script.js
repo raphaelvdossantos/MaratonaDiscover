@@ -31,6 +31,15 @@ const Storage = {
   set(transactions){
     localStorage
       .setItem("dev.finances:transactions", JSON.stringify(transactions));
+  },
+  getMode(){
+    return JSON
+      .parse(localStorage
+        .getItem("Mode:modeTheme")) || [];
+  },
+  setMode(theme){
+    localStorage
+      .setItem("Mode:modeTheme", JSON.stringify(theme));
   }
 }
 
@@ -58,6 +67,15 @@ const Transaction = {
     let total = 0;
     Transaction.all.forEach(element => element.amount ? total += element.amount : total);
     return Transaction.incomes() + Transaction.expenses();
+  }
+}
+
+const PanelControl = {
+  changePanel(){
+    const calculatorPanel = document.querySelector('#calculator');
+    const chartPanel = document.querySelector('.chart-page');
+    calculatorPanel.classList.toggle('hide');
+    chartPanel.classList.toggle('hide');
   }
 }
 
@@ -106,7 +124,8 @@ const DOM = {
 
 const Utils = {
   formatAmount(value){
-    return Number(value) * 100;
+    value = value * 100;
+    return Math.round(value);
   },
   formatDate(date){
     const splittedDate = date.split("-")
@@ -137,6 +156,10 @@ const Utils = {
     });
 
     return signal + value;
+  },
+  formatData(value){
+    value = Number(value)/100;
+    return value;
   }
 }
 
@@ -196,6 +219,67 @@ const Form = {
   }
 }
 
+const Graph =  {
+  draw(){  
+    const graph = document.getElementById("chart").getContext("2d");
+    const myChart = new Chart(graph, {
+      type: "bar",
+      data: {
+        labels: Graph.getLabels(),
+        datasets: [
+          {
+            label: "Balance",
+            data: Graph.getData(),
+            backgroundColor: Graph.getColors()
+          },
+        ],
+      },
+      options: {
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    return myChart;
+  },
+  getLabels(){
+    const list = [];
+    Storage.get().forEach(element => {
+      list.push(element.description)
+    });
+    return list;
+  },
+  getData(){
+    const data = [];
+    Storage.get().forEach(element => {
+      data.push(Utils.formatData(element.amount))
+    });
+    return data;
+  },
+  getColors(){
+    const colors = [];
+    Storage.get().forEach(element => {
+      colors.push( element.amount > 0? '#12A454' : '#e92929');
+      
+    });
+    return colors;
+  }
+}
+
 const Export = {
   downloadCSV(){     
     const csvToExport = Utils.formatCSV(Storage.get());
@@ -227,7 +311,7 @@ const Export = {
       .classList.remove('hide')
   }
 }
-
+  
 const Mode = {
   screen: document.documentElement,
   alternate(){
@@ -236,21 +320,38 @@ const Mode = {
     toggleControl.checked ? 
       Mode.screen.setAttribute('data-theme', 'dark') : 
       Mode.screen.setAttribute('data-theme', 'light');
-     
+    
+    Mode.saveMode();      
   },
   transition(){
     Mode.screen.classList.add('transition');
     window.setTimeout(() => {
       Mode.screen.classList.remove('transition');
     }, 3000);
+  },
+  onWakeMode(){
+    const currentMode = Storage.getMode();
+    const toggleControl = document.querySelector('#switch');
+
+    toggleControl.defaultChecked = currentMode == "dark";
+
+    if(currentMode == "dark"){
+      Mode.screen.setAttribute('data-theme', 'dark');
+    }
+  },
+  saveMode(){
+    const currentMode = Mode.screen.getAttribute('data-theme');
+    Storage.setMode(currentMode);
   }
 }
-
+  
 const App = {
   init(){
+    Mode.onWakeMode();
     Transaction.all.forEach(DOM.addTransaction);
     DOM.updateBalance();  
     Storage.set(Transaction.all);
+    Graph.draw();
   },
   reload(){
     DOM.clearTransaction();
@@ -258,6 +359,4 @@ const App = {
   }
 }
 
-
-
-App.init()
+  App.init()

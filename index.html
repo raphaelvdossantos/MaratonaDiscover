@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;600&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <title>Devdot</title>
   </head>
   <body>
@@ -24,53 +25,68 @@
         />
         <label for="switch">Alternar</label>
       </header>
-      <section id="balance">
-        <h2 class="sr-only">Balanço</h2>
-        <div class="card">
-          <h3>
-            <span>Entradas</span>
-            <img src="./assets/income.svg" alt="Imagem de Entradas" />
-          </h3>
-          <p id="incomeDisplay">R$ 0,00</p>
-        </div>
+      <div id="calculator">
+        <section id="balance">
+          <h2 class="sr-only">Balanço</h2>
+          <div class="card">
+            <h3>
+              <span>Entradas</span>
+              <img src="./assets/income.svg" alt="Imagem de Entradas" />
+            </h3>
+            <p id="incomeDisplay">R$ 0,00</p>
+          </div>
 
-        <div class="card">
-          <h3>
-            <span>Saídas</span>
-            <img src="./assets/expense.svg" alt="Imagem de Saídas" />
-          </h3>
-          <p id="expenseDisplay">R$ 0,00</p>
-        </div>
-        <div class="card total">
-          <h3>
-            <span>Total</span>
-            <img src="./assets/total.svg" alt="Imagem de Dinheiro Total" />
-          </h3>
-          <p id="totalDisplay">R$ 0,00</p>
-        </div>
-      </section>
+          <div class="card">
+            <h3>
+              <span>Saídas</span>
+              <img src="./assets/expense.svg" alt="Imagem de Saídas" />
+            </h3>
+            <p id="expenseDisplay">R$ 0,00</p>
+          </div>
+          <div class="card total">
+            <h3>
+              <span>Total</span>
+              <img src="./assets/total.svg" alt="Imagem de Dinheiro Total" />
+            </h3>
+            <p id="totalDisplay">R$ 0,00</p>
+          </div>
+        </section>
 
-      <section id="transaction">
-        <h2 class="sr-only">Transações</h2>
-        <div id="button-bay">
-          <a href="#" onclick="Modal.open()" class="button new"
-            >+ Nova Transação</a
-          ><a href="#" onclick="Export.openLinkModal()" class="button new"
-            >Exportar como CSV</a
-          >
-        </div>
-        <div class="table-container">
-          <table id="data-table">
-            <thead>
-              <tr>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th>Data</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+        <section id="transaction">
+          <h2 class="sr-only">Transações</h2>
+          <div id="button-bay">
+            <a href="#" onclick="Modal.open()" class="button new"
+              >+ Nova Transação</a
+            ><a href="#" onclick="Export.openLinkModal()" class="button new"
+              >Exportar como CSV</a
+            >
+          </div>
+          <div class="table-container">
+            <table id="data-table">
+              <thead>
+                <tr>
+                  <th>Descrição</th>
+                  <th>Valor</th>
+                  <th>Data</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel-button-bay">
+            <button onclick="PanelControl.changePanel()" id="to-chart">
+              Ver Gráfico
+            </button>
+          </div>
+        </section>
+      </div>
+      <section class="chart-page hide">
+        <canvas id="chart"></canvas>
+        <div class="panel-button-bay">
+          <button onclick="PanelControl.changePanel()" id="to-calculator">
+            Ver Calculadora
+          </button>
         </div>
       </section>
     </main>
@@ -127,7 +143,7 @@
     </div>
 
     <footer>
-      <p>2021 - dev.finance$</p>
+      <p>2021 - Devdot</p>
     </footer>
     <script src="./script.js"></script>
   </body>
