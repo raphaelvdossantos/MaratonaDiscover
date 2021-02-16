@@ -1,5 +1,7 @@
 const Modal = {
+  isEdit: false,
   open() {
+    Modal.isEdit = false
     document
       .querySelector(".modal-overlay")
       .classList
@@ -20,6 +22,20 @@ const Modal = {
       .classList
       .remove("active");
   },
+  openEdit(){
+    document
+    .querySelector(".modal-overlay")
+    .classList
+    .add("active");
+  document
+    .querySelector(".error-box")
+    .classList.remove('active');
+  document
+    .querySelector('#form')
+      .classList.remove('hide')
+  document.querySelector('.downloadbox')
+    .classList.add('hide')
+  }
 };
 
 const Storage = {
@@ -45,8 +61,13 @@ const Storage = {
 
 const Transaction = {
   all: Storage.get(),
+  underEditionIndex: null,
   add(transaction){
     Transaction.all.push(transaction);
+    App.reload();
+  },
+  saveEdit(transaction, index){
+    Transaction.all[index] = transaction;
     App.reload();
   },
   remove(index){
@@ -84,6 +105,7 @@ const DOM = {
   addTransaction(transaction, index) {
     const tr = document.createElement('tr');
     tr.innerHTML = DOM.innerHTMLTransaction(transaction, index);
+    tr.dataset.index = index;
 
     DOM.transactionContainer.appendChild(tr);
   },
@@ -95,7 +117,7 @@ const DOM = {
 
     const html = `
       <tr>
-        <td class="description">${description}</td>
+        <td class="description" onclick="DOM.editTransaction(${index})">${description}</td>
         <td class="${transactionType}">${formattedAmount}</td>
         <td class="date">${date}</td>
         <td>
@@ -105,6 +127,15 @@ const DOM = {
       `;
 
     return html
+  },
+  editTransaction(index){
+    Modal.isEdit = true;
+    Modal.openEdit();
+    document.querySelector('input#description').value = Transaction.all[index].description
+    document.querySelector('input#amount').value = Transaction.all[index].amount/100
+    document.querySelector('input#date').value = Utils.reformatDate(Transaction.all[index].date)
+
+    Transaction.underEditionIndex = index;
   },
   updateBalance() {
     document
@@ -128,8 +159,12 @@ const Utils = {
     return Math.round(value);
   },
   formatDate(date){
-    const splittedDate = date.split("-")
-    return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`
+    const splittedDate = date.split("-");
+    return `${splittedDate[2]}/${splittedDate[1]}/${splittedDate[0]}`;
+  },
+  reformatDate(date){
+    const splittedDate = date.split("/");
+    return `${splittedDate[2]}-${splittedDate[1]}-${splittedDate[0]}`;
   },
   formatCSV(data){
     
@@ -204,12 +239,14 @@ const Form = {
   submit(event){
     event.preventDefault();
     
-
     try{
       Form.validateFields();
       const transaction = Form.formatData();
 
-      Transaction.add(transaction);
+      Modal.isEdit ? 
+        Transaction.saveEdit(transaction, Transaction.underEditionIndex) :
+        Transaction.add(transaction);
+
       Form.clearFields();
       Modal.close();
 

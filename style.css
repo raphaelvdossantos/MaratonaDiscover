@@ -309,6 +309,7 @@ table tbody td:hover {
 
 td.description {
   color: var(--dark-blue);
+  cursor: pointer;
 }
 
 td.income {
@@ -480,6 +481,7 @@ input#date{
 
 #chart{
   margin: auto 0;
+  height: 10vh;
 }
 
 /* Footer ==================================*/
