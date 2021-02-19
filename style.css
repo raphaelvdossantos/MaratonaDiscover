@@ -359,6 +359,7 @@ td.expense {
   font-weight: 400;
   text-align: center;
   margin-bottom: 0.5rem;
+  color: var(--dark);
 }
 
 #download-link {
