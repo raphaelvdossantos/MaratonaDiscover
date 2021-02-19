@@ -349,7 +349,7 @@ td.expense {
   border-radius: 1rem;
 }
 
-#downloadbox {
+.downloadbox {
   visibility: visible;
   display: flex;
   flex-direction: column;
@@ -520,9 +520,14 @@ footer p {
     gap: 2rem;
   }
 
-  #downloadbox {
+  .downloadbox {
     visibility: visible;
     display: inherit;
+  }
+
+  .hide {
+    visibility: hidden;
+    display: none;
   }
 
   #download-link {
