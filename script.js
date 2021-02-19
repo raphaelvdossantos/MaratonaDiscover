@@ -279,6 +279,9 @@ const Graph = {
           },
         ],
       },
+      legend: {
+        display: false,
+      },
     },
   },
   getLabels() {

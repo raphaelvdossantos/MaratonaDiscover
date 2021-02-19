@@ -351,6 +351,8 @@ td.expense {
 
 #downloadbox {
   visibility: visible;
+  display: flex;
+  flex-direction: column;
 }
 
 #downloadbox h4 {
@@ -360,7 +362,6 @@ td.expense {
 }
 
 #download-link {
-  float: right;
   border-radius: 0.5rem;
 
   padding: 1rem 2rem;
@@ -481,6 +482,12 @@ input#date {
   margin-top: -6rem;
 }
 
+.chart-page h2 {
+  text-align: center;
+  font-weight: 600;
+  margin: -2rem 0 3rem;
+}
+
 #chart {
   margin: auto 0;
   height: 10vh;
@@ -510,6 +517,19 @@ footer p {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
+  }
+
+  #downloadbox {
+    visibility: visible;
+    display: inherit;
+  }
+
+  #download-link {
+    float: right;
+  }
+
+  #cancel-download {
+    float: left;
   }
 }
 /*# sourceMappingURL=style.css.map */
