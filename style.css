@@ -16,6 +16,7 @@ html {
   --green: #12a454;
   --dark-green: #0e8242;
   --red: #e92929;
+  --help: #221e22;
 }
 
 html[data-theme="dark"] {
@@ -27,6 +28,7 @@ html[data-theme="dark"] {
   --green: #12a454;
   --dark-green: #0e8242;
   --red: #e92929;
+  --help: #ebeceb;
 }
 
 html.transition,
@@ -464,6 +466,7 @@ input#date {
   opacity: 0.6;
   padding-left: 0.3rem;
   padding-top: 0.5rem;
+  color: var(--help);
 }
 
 .input-group.actions {
