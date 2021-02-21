@@ -1,9 +1,11 @@
 <p align="center"><img src="https://github.com/raphaelvdossantos/MaratonaDiscover/blob/master/assets/logo.svg" alt="DEvdor logo"></img></p>
 
 <h1 align="center"> :moneybag: DEVdot (Former Dev.Finance$) :moneybag: </h1>
+
 [Add Transaction](https://github.com/raphaelvdossantos/MaratonaDiscover#inbox_tray-adding-a-new-transaction-adicionando-uma-nova-transa%C3%A7%C3%A3o) | [Edit Transaction](https://github.com/raphaelvdossantos/MaratonaDiscover#pencil-editing-a-transation-editando-uma-transa%C3%A7%C3%A3o) | [Graph view](https://github.com/raphaelvdossantos/MaratonaDiscover#bar_chart-graphic-view-vis%C3%A3o-em-gr%C3%A1fico) | [Technologies](https://github.com/raphaelvdossantos/MaratonaDiscover#computer-technologies-tecnologias)
 
 [Adicionar Transação](https://github.com/raphaelvdossantos/MaratonaDiscover#inbox_tray-adding-a-new-transaction-adicionando-uma-nova-transa%C3%A7%C3%A3o) | [Editar Transação](https://github.com/raphaelvdossantos/MaratonaDiscover#pencil-editing-a-transation-editando-uma-transa%C3%A7%C3%A3o) | [Visão em Gráfico](https://github.com/raphaelvdossantos/MaratonaDiscover#bar_chart-graphic-view-vis%C3%A3o-em-gr%C3%A1fico) | [Tecnologias](https://github.com/raphaelvdossantos/MaratonaDiscover#computer-technologies-tecnologias)
+
 <br>
 
 <p align="center"><img src="https://github.com/raphaelvdossantos/MaratonaDiscover/blob/master/gifs/Devdot.gif" alt="Devdot app"></img></p>
